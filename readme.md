@@ -19,6 +19,11 @@ const allFiles = fsx.getFilesRecursiveSync("/some/directory")
 // get all subdirectories of a directory
 const allDirs = fsx.getDirsRecursiveSync("/some/directory")
 
+// add an optional depth argument
+// (e.g., in this case, only go 3 levels down)
+const shallowFiles = fs.getFilesRecursiveSync("/some/directory", 3)
+const shallowDirs = fs.getDirsRecursiveSync("/some/directory", 3)
+
 // delete a bunch of files
 fsx.rmFilesSync(allFiles)
 
