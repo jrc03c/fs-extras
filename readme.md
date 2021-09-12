@@ -61,8 +61,48 @@ fsx.getFilesDeep("/some/directory").then(files => {
 
 **`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`**
 
-synchronously returns an array of directories and files matched by `matcher`
+synchronously returns an array of directories and files matched by `matcher` to an optional depth of `depth`
 
 **`find(dir : string, matcher : RegExp | string | function, depth? : int, callback? : function)`**
 
-asynchronously returns an array of directories and files matched by `matcher`
+asynchronously returns an array of directories and files matched by `matcher` to an optional depth of `depth`
+
+**`getDirsDeepSync(dir : string, depth? : int)`**
+
+synchronously returns all subdirectories of `dir` to an optional depth of `depth`
+
+**`getDirsDeep(dir : string, depth? : int, callback? : function)`**
+
+asynchronously returns all subdirectories of `dir` to an optional depth of `depth`
+
+**`getFilesDeepSync(dir : string, depth? : int)`**
+
+synchronously returns all files in `dir` and all its subdirectories to an optional depth of `depth`
+
+**`getFilesDeep(dir : string, depth? : int, callback? : function)`**
+
+asynchronously returns all files in `dir` and all its subdirectories to an optional depth of `depth`
+
+**`rmDirSync(dir : string)`**
+
+synchronously removes the directory `dir` and everything inside it
+
+**`rmDir(dir : string, callback? : function)`**
+
+asynchronously removes the directory `dir` and everything inside it
+
+**`rmDirsSync(dirs : array)`**
+
+synchronously removes all directories in `dirs` and everything inside them
+
+**`rmDirs(dirs : array, callback? : function)`**
+
+asynchronously removes all directories in `dirs` and everything inside them
+
+**`rmFilesSync(files : array)`**
+
+synchronously removes all files in `files`
+
+**`rmFiles(files : array, callback? : function)`**
+
+asynchronously removes all files in `files`
