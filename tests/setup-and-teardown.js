@@ -1,16 +1,22 @@
 const path = require("path")
 const exec = require("child_process").exec
 const makeKey = require("./make-key.js")
-const root = path.resolve(makeKey(8))
+const root = path.resolve("temp/" + makeKey(8))
+let files, dirs
 
 Array.prototype.random = function () {
   const self = this
   return self[parseInt(Math.random() * self.length)]
 }
 
+Array.prototype.last = function () {
+  const self = this
+  return self[self.length - 1]
+}
+
 beforeAll(() => {
-  const files = []
-  const dirs = [root]
+  files = []
+  dirs = [root]
 
   for (let i = 0; i < 100; i++) {
     const name = makeKey(8)
@@ -31,3 +37,17 @@ beforeAll(() => {
 afterAll(() => {
   exec(`rm -rf ${root}`)
 })
+
+module.exports = {
+  get root() {
+    return root
+  },
+
+  get files() {
+    return files
+  },
+
+  get dirs() {
+    return dirs
+  },
+}
