@@ -13,3 +13,5 @@ function rmDirSync(dir) {
 
   fs.rmdirSync(dir)
 }
+
+module.exports = rmDirSync

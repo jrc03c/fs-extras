@@ -1,10 +1,10 @@
 const fs = require("fs")
 const rmDirSync = require("./rm-dir-sync.js")
 
-function rmDirsSync(dir) {
-  const children = fs.readdirSync(dir)
-
-  children.forEach(child => {
-    rmDirSync(dir + "/" + child)
+function rmDirsSync(dirs) {
+  dirs.forEach(dir => {
+    rmDirSync(dir)
   })
 }
+
+module.exports = rmDirsSync
