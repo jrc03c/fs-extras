@@ -41,7 +41,7 @@ fsx.findSync("/some/directory", /\.txt/g, 3)
 
 All of the above functions have asynchronous versions. Simply omit the "Sync" at the end of the function name. For example, the asynchronous version of `getFilesDeepSync` would be `getFilesDeep`.
 
-The async functions return a Promise, but you can also pass a callback to them. Either style is fine! For example, both of these styles work as expected:
+The async functions return a Promise, but you can also pass a callback to them; either style is fine! For example, both of these styles work as expected:
 
 ```js
 const fsx = require("@jrc03c/fs-extras")
