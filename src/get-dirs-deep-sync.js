@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 
-function getFilesRecursiveSync(dir, depth) {
+function getAllDirsDeepSync(dir, depth) {
   try {
     if (typeof depth !== "number") {
       depth = Infinity
@@ -19,10 +19,9 @@ function getFilesRecursiveSync(dir, depth) {
     children.forEach(child => {
       const childPath = dir + "/" + child
 
-      if (fs.lstatSync(childPath).isFile()) {
+      if (!fs.lstatSync(childPath).isFile()) {
         out.push(childPath)
-      } else {
-        getFilesRecursiveSync(childPath, depth - 1).forEach(d => out.push(d))
+        getAllDirsDeepSync(childPath, depth - 1).forEach(d => out.push(d))
       }
     })
 
@@ -32,4 +31,4 @@ function getFilesRecursiveSync(dir, depth) {
   }
 }
 
-module.exports = getFilesRecursiveSync
+module.exports = getAllDirsDeepSync

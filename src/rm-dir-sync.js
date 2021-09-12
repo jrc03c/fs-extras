@@ -1,13 +1,13 @@
 const fs = require("fs")
-const getDirsRecursiveSync = require("./get-dirs-recursive-sync.js")
-const getFilesRecursiveSync = require("./get-files-recursive-sync.js")
+const getDirsDeepSync = require("./get-dirs-deep-sync.js")
+const getFilesDeepSync = require("./get-files-deep-sync.js")
 
 function rmDirSync(dir) {
-  getFilesRecursiveSync(dir).forEach(file => {
+  getFilesDeepSync(dir).forEach(file => {
     fs.unlinkSync(file)
   })
 
-  getDirsRecursiveSync(dir).forEach(subdir => {
+  getDirsDeepSync(dir).forEach(subdir => {
     fs.rmdirSync(subdir)
   })
 

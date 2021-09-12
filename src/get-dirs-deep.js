@@ -1,6 +1,6 @@
-const getDirsRecursiveSync = require("./get-dirs-recursive-sync.js")
+const getDirsDeepSync = require("./get-dirs-deep-sync.js")
 
-function getDirsRecursive() {
+function getDirsDeep() {
   const args = Object.values(arguments)
   const dir = args.filter(a => typeof a === "string")[0]
   const depth = args.filter(a => typeof a === "number")[0]
@@ -8,7 +8,7 @@ function getDirsRecursive() {
 
   return new Promise((resolve, reject) => {
     try {
-      const dirs = getDirsRecursiveSync(dir, depth)
+      const dirs = getDirsDeepSync(dir, depth)
       if (callback) callback(dirs)
       resolve(dirs)
     } catch (e) {
@@ -17,4 +17,4 @@ function getDirsRecursive() {
   })
 }
 
-module.exports = getDirsRecursive
+module.exports = getDirsDeep

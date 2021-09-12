@@ -1,8 +1,8 @@
 module.exports = {
-  getDirsRecursiveSync: require("./src/get-dirs-recursive-sync.js"),
-  getDirsRecursive: require("./src/get-dirs-recursive.js"),
-  getFilesRecursiveSync: require("./src/get-files-recursive-sync.js"),
-  getFilesRecursive: require("./src/get-files-recursive.js"),
+  getDirsDeepSync: require("./src/get-dirs-deep-sync.js"),
+  getDirsDeep: require("./src/get-dirs-deep.js"),
+  getFilesDeepSync: require("./src/get-files-deep-sync.js"),
+  getFilesDeep: require("./src/get-files-deep.js"),
   rmDirSync: require("./src/rm-dir-sync.js"),
   rmDir: require("./src/rm-dir.js"),
   rmDirsSync: require("./src/rm-dirs-sync.js"),

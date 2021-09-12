@@ -1,6 +1,6 @@
-const getFilesRecursiveSync = require("./get-files-recursive-sync.js")
+const getFilesDeepSync = require("./get-files-deep-sync.js")
 
-function getFilesRecursive() {
+function getFilesDeep() {
   const args = Object.values(arguments)
   const dir = args.filter(a => typeof a === "string")[0]
   const depth = args.filter(a => typeof a === "number")[0]
@@ -8,7 +8,7 @@ function getFilesRecursive() {
 
   return new Promise((resolve, reject) => {
     try {
-      const files = getFilesRecursiveSync(dir, depth)
+      const files = getFilesDeepSync(dir, depth)
       if (callback) callback(files)
       resolve(files)
     } catch (e) {
@@ -17,4 +17,4 @@ function getFilesRecursive() {
   })
 }
 
-module.exports = getFilesRecursive
+module.exports = getFilesDeep
