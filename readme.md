@@ -1,6 +1,6 @@
 # Introduction
 
-**fs-extras** is a little package of extra tools to supplement Node's `fs` module.
+**fs-extras** is a little package of tools to supplement Node's `fs` module.
 
 # Installation
 
