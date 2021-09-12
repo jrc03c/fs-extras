@@ -3,7 +3,11 @@ const path = require("path")
 
 function getAllDirsRecursiveSync(dir, depth) {
   try {
-    if (typeof depth === "number" && depth <= 0) {
+    if (typeof depth !== "number") {
+      depth = Infinity
+    }
+
+    if (depth <= 0) {
       return []
     }
 
