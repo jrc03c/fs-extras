@@ -1,5 +1,6 @@
 const fs = require("fs")
 const path = require("path")
+const { sort, set } = require("@jrc03c/js-math-tools")
 
 function getFilesDeepSync(dir, depth) {
   try {
@@ -26,7 +27,7 @@ function getFilesDeepSync(dir, depth) {
       }
     })
 
-    return out
+    return sort(set(out))
   } catch (e) {
     return []
   }

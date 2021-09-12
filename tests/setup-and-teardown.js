@@ -9,10 +9,15 @@ Array.prototype.random = function () {
   return self[parseInt(Math.random() * self.length)]
 }
 
-Array.prototype.last = function () {
-  const self = this
-  return self[self.length - 1]
-}
+Object.defineProperty(Array.prototype, "last", {
+  configurable: false,
+  enumerable: true,
+
+  get() {
+    const self = this
+    return self[self.length - 1]
+  },
+})
 
 beforeAll(() => {
   files = []

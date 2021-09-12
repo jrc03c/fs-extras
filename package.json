@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jrc03c/fs-extras.js/issues"
   },
-  "homepage": "https://github.com/jrc03c/fs-extras.js#readme"
+  "homepage": "https://github.com/jrc03c/fs-extras.js#readme",
+  "dependencies": {
+    "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools"
+  }
 }
