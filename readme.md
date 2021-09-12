@@ -57,6 +57,10 @@ fsx.getFilesDeep("/some/directory").then(files => {
 })
 ```
 
+# Caveats
+
+This has only been tested on Linux. I suspect it probably won't work on Windows unless you're using [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) or similar.
+
 # API
 
 **`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`**
