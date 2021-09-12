@@ -59,6 +59,10 @@ fsx.getFilesDeep("/some/directory").then(files => {
 
 # API
 
-**`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`** → synchronously returns an array of directories and files matched by `matcher`
+**`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`**
 
-**`find(dir : string, matcher : RegExp | string | function, depth? : int, callback? : function)`** → asynchronously returns an array of directories and files matched by `matcher`
+synchronously returns an array of directories and files matched by `matcher`
+
+**`find(dir : string, matcher : RegExp | string | function, depth? : int, callback? : function)`**
+
+asynchronously returns an array of directories and files matched by `matcher`
