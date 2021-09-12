@@ -14,10 +14,10 @@ npm install --save https://github.com/jrc03c/fs-extras.js
 const fsx = require("@jrc03c/fs-extras")
 
 // get all files in a directory and its subdirectories
-const allFiles = fsx.getAllFilesRecursiveSync("/some/directory")
+const allFiles = fsx.getFilesRecursiveSync("/some/directory")
 
 // get all subdirectories of a directory
-const allDirs = fsx.getAllDirsRecursiveSync("/some/directory")
+const allDirs = fsx.getDirsRecursiveSync("/some/directory")
 
 // delete a bunch of files
 fsx.rmFilesSync(allFiles)
@@ -29,7 +29,7 @@ fsx.rmDirSync(someDir)
 fsx.rmDirsSync(allDirs)
 ```
 
-All of the above functions have asynchronous versions. Simply omit the "Sync" at the end of the function name. For example, the asynchronous version of `getAllFilesRecursiveSync` would be `getAllFilesRecursive`.
+All of the above functions have asynchronous versions. Simply omit the "Sync" at the end of the function name. For example, the asynchronous version of `getFilesRecursiveSync` would be `getFilesRecursive`.
 
 The async functions return a Promise, but you can also pass a callback to them. Either style is fine! For example, both of these styles work just fine:
 
@@ -37,12 +37,12 @@ The async functions return a Promise, but you can also pass a callback to them. 
 const fsx = require("@jrc03c/fs-extras")
 
 // version 1: using a callback
-fsx.getAllFilesRecursive("/some/directory", files => {
+fsx.getFilesRecursive("/some/directory", files => {
   console.log(files)
 })
 
 // version2: using a Promise
-fsx.getAllFilesRecursive("/some/directory").then(files => {
+fsx.getFilesRecursive("/some/directory").then(files => {
   console.log(files)
 })
 ```
