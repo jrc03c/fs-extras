@@ -29,7 +29,7 @@ beforeAll(() => {
     const dir = dirs.random()
 
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir)
+      fs.mkdirSync(dir, { recursive: true })
     }
 
     if (Math.random() < 0.5) {
@@ -39,13 +39,13 @@ beforeAll(() => {
     } else {
       const newDir = path.resolve(dir + "/" + name)
       dirs.push(newDir)
-      fs.mkdirSync(newDir)
+      fs.mkdirSync(newDir, { recursive: true })
     }
   }
 })
 
 afterAll(() => {
-  exec(`rm -rf ${root}`)
+  fs.rmSync(root, { recursive: true, force: true })
 })
 
 module.exports = {

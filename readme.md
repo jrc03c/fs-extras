@@ -23,20 +23,6 @@ const allDirs = fsx.getDirsDeepSync("/some/directory")
 // (e.g., in this case, only go 3 levels down)
 const shallowFiles = fs.getFilesDeepSync("/some/directory", 3)
 const shallowDirs = fs.getDirsDeepSync("/some/directory", 3)
-
-// delete a bunch of files
-fsx.rmFilesSync(allFiles)
-
-// delete a single directory (and everything inside it, of course)
-fsx.rmDirSync(someDir)
-
-// delete a bunch of directories (and everything inside them, of course)
-fsx.rmDirsSync(allDirs)
-
-// find a file or directory
-// (e.g., find *.txt files in "/some/directory", and look no deeper than 3 levels down)
-// (also, note that in the `findSync` function, the second argument can be a regular expression, a string, or a function!)
-fsx.findSync("/some/directory", /\.txt/g, 3)
 ```
 
 All of the above functions have asynchronous versions. Simply omit the "Sync" at the end of the function name. For example, the asynchronous version of `getFilesDeepSync` would be `getFilesDeep`.
@@ -86,27 +72,3 @@ synchronously returns all files in `dir` and all its subdirectories to an option
 **`getFilesDeep(dir : string, depth? : int, callback? : function)`**
 
 asynchronously returns all files in `dir` and all its subdirectories to an optional depth of `depth`
-
-**`rmDirSync(dir : string)`**
-
-synchronously removes the directory `dir` and everything inside it
-
-**`rmDir(dir : string, callback? : function)`**
-
-asynchronously removes the directory `dir` and everything inside it
-
-**`rmDirsSync(dirs : array)`**
-
-synchronously removes all directories in `dirs` and everything inside them
-
-**`rmDirs(dirs : array, callback? : function)`**
-
-asynchronously removes all directories in `dirs` and everything inside them
-
-**`rmFilesSync(files : array)`**
-
-synchronously removes all files in `files`
-
-**`rmFiles(files : array, callback? : function)`**
-
-asynchronously removes all files in `files`
