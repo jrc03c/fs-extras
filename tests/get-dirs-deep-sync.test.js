@@ -9,14 +9,16 @@ test("tests that directories can be gotten deeply and synchronously", () => {
 
 test("tests that directories can be gotten shallowly and synchronously", () => {
   const depth = 3
-  const results = [config.root].concat(getDirsDeepSync(config.root, depth))
+  const resultsPred = [config.root].concat(getDirsDeepSync(config.root, depth))
 
-  results.forEach(result => {
-    const parts = result
+  const resultsTrue = config.dirs.filter(dir => {
+    const parts = dir
       .replaceAll(config.root, "")
       .split("/")
       .filter(p => p.length > 0)
 
-    expect(parts.length).toBeLessThanOrEqual(depth)
+    return parts.length <= depth
   })
+
+  expect(sort(set(resultsPred))).toStrictEqual(sort(set(resultsTrue)))
 })
