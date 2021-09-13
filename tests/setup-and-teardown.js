@@ -1,3 +1,4 @@
+const fs = require("fs")
 const path = require("path")
 const exec = require("child_process").exec
 const makeKey = require("./make-key.js")
@@ -27,14 +28,18 @@ beforeAll(() => {
     const name = makeKey(8)
     const dir = dirs.random()
 
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir)
+    }
+
     if (Math.random() < 0.5) {
       const newFile = path.resolve(dir + "/" + name)
       files.push(newFile)
-      exec(`echo ${Math.random().toString()} >> ${newFile}`)
+      fs.writeFileSync(newFile, Math.random().toString(), "utf8")
     } else {
       const newDir = path.resolve(dir + "/" + name)
       dirs.push(newDir)
-      exec(`mkdir -p ${newDir}`)
+      fs.mkdirSync(newDir)
     }
   }
 })
