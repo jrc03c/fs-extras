@@ -2,7 +2,7 @@ const fs = require("fs")
 const path = require("path")
 const makeKey = require("./make-key.js")
 const root = path.resolve("temp/" + makeKey(8))
-let files, dirs, fileSymlinks, dirSymlinks
+let files, dirs, fileSymlinks
 
 Array.prototype.random = function () {
   const self = this
@@ -23,7 +23,6 @@ beforeAll(() => {
   files = []
   fileSymlinks = []
   dirs = [root]
-  dirSymlinks = []
 
   for (let i = 0; i < 100; i++) {
     const name = makeKey(8)
@@ -52,17 +51,8 @@ beforeAll(() => {
     // set up directories
     else {
       const newDir = path.resolve(dir + "/" + name)
-
-      if (Math.random() < 0.5 || dirs.length === 0) {
-        // make a directory
-        dirs.push(newDir)
-        fs.mkdirSync(newDir, { recursive: true })
-      } else {
-        // symlink a directory
-        const currentDir = dirs.random()
-        dirSymlinks.push(newDir)
-        fs.symlinkSync(currentDir, newDir)
-      }
+      dirs.push(newDir)
+      fs.mkdirSync(newDir, { recursive: true })
     }
   }
 })
@@ -81,6 +71,6 @@ module.exports = {
   },
 
   get dirs() {
-    return dirs.concat(dirSymlinks)
+    return dirs
   },
 }

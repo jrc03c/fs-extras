@@ -1,6 +1,5 @@
 const fs = require("fs")
 const findSync = require("../src/find-sync.js")
-const makeKey = require("./make-key.js")
 const config = require("./setup-and-teardown.js")
 const { sort, set } = require("@jrc03c/js-math-tools")
 
@@ -14,12 +13,14 @@ test("tests that arbitrary files can be found synchronously", () => {
 
 test("tests that arbitrary directories can be found synchronously", () => {
   const dirTrue = config.dirs.random()
-  const name = dirTrue.split("/").last
-  const resultsTrue = sort(set(config.dirs.filter(d => d.match(name))))
+  const name = dirTrue.split("/").filter(p => p.length > 0).last
+  const resultsTrue = sort(set(config.dirs.filter(d => d.includes(name))))
+
   const resultsPred = sort(
     set(
-      findSync(config.root, name).filter(f => {
-        return !fs.lstatSync(f).isFile()
+      findSync(config.root, path => {
+        const stat = fs.lstatSync(path)
+        return path.includes(name) && !stat.isFile() && !stat.isSymbolicLink()
       })
     )
   )
