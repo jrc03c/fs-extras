@@ -19,9 +19,16 @@ function getFilesDeepSync(dir, depth) {
 
     children.forEach(child => {
       const childPath = dir + "/" + child
+      const stat = fs.lstatSync(childPath)
 
-      if (fs.lstatSync(childPath).isFile()) {
+      if (stat.isFile()) {
         out.push(childPath)
+      } else if (stat.isSymbolicLink()) {
+        const target = fs.readlinkSync(childPath)
+
+        if (fs.lstatSync(target).isFile()) {
+          out.push(childPath)
+        }
       } else {
         getFilesDeepSync(childPath, depth - 1).forEach(d => out.push(d))
       }

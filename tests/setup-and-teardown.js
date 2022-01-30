@@ -1,9 +1,8 @@
 const fs = require("fs")
 const path = require("path")
-const exec = require("child_process").exec
 const makeKey = require("./make-key.js")
 const root = path.resolve("temp/" + makeKey(8))
-let files, dirs
+let files, dirs, fileSymlinks, dirSymlinks
 
 Array.prototype.random = function () {
   const self = this
@@ -22,7 +21,9 @@ Object.defineProperty(Array.prototype, "last", {
 
 beforeAll(() => {
   files = []
+  fileSymlinks = []
   dirs = [root]
+  dirSymlinks = []
 
   for (let i = 0; i < 100; i++) {
     const name = makeKey(8)
@@ -32,14 +33,36 @@ beforeAll(() => {
       fs.mkdirSync(dir, { recursive: true })
     }
 
+    // set up files
     if (Math.random() < 0.5) {
       const newFile = path.resolve(dir + "/" + name)
-      files.push(newFile)
-      fs.writeFileSync(newFile, Math.random().toString(), "utf8")
-    } else {
+
+      if (Math.random() < 0.5 || files.length === 0) {
+        // create a file
+        files.push(newFile)
+        fs.writeFileSync(newFile, Math.random().toString(), "utf8")
+      } else {
+        // symlink a file
+        const currentFile = files.random()
+        fileSymlinks.push(newFile)
+        fs.symlinkSync(currentFile, newFile)
+      }
+    }
+
+    // set up directories
+    else {
       const newDir = path.resolve(dir + "/" + name)
-      dirs.push(newDir)
-      fs.mkdirSync(newDir, { recursive: true })
+
+      if (Math.random() < 0.5 || dirs.length === 0) {
+        // make a directory
+        dirs.push(newDir)
+        fs.mkdirSync(newDir, { recursive: true })
+      } else {
+        // symlink a directory
+        const currentDir = dirs.random()
+        dirSymlinks.push(newDir)
+        fs.symlinkSync(currentDir, newDir)
+      }
     }
   }
 })
@@ -54,10 +77,10 @@ module.exports = {
   },
 
   get files() {
-    return files
+    return files.concat(fileSymlinks)
   },
 
   get dirs() {
-    return dirs
+    return dirs.concat(dirSymlinks)
   },
 }

@@ -1,6 +1,7 @@
 const getFilesDeepSync = require("../src/get-files-deep-sync.js")
 const config = require("./setup-and-teardown.js")
 const { sort, set } = require("@jrc03c/js-math-tools")
+const fs = require("fs")
 
 test("tests that files can be gotten deeply and synchronously", () => {
   const results = sort(set(getFilesDeepSync(config.root)))
@@ -21,4 +22,9 @@ test("tests that files can be gotten shallowly and synchronously", () => {
   })
 
   expect(sort(set(resultsPred))).toStrictEqual(sort(set(resultsTrue)))
+})
+
+test("tests that symlinks are included", () => {
+  const files = sort(set(getFilesDeepSync(config.root)))
+  expect(files.some(f => fs.lstatSync(f).isSymbolicLink())).toBe(true)
 })
