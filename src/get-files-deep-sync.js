@@ -13,7 +13,14 @@ function getFilesDeepSync(dir, depth) {
 
   dir = path.resolve(dir)
 
-  const children = fs.readdirSync(dir)
+  const children = (() => {
+    try {
+      return fs.readdirSync(dir)
+    } catch (e) {
+      return []
+    }
+  })()
+
   const out = []
 
   children.forEach(child => {
