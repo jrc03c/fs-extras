@@ -21,6 +21,7 @@
     "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools"
   },
   "devDependencies": {
+    "@jrc03c/filedb": "github:jrc03c/filedb",
     "eslint": "^8.19.0"
   }
 }
