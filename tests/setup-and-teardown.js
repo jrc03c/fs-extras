@@ -19,7 +19,7 @@ Object.defineProperty(Array.prototype, "last", {
   },
 })
 
-beforeAll(() => {
+beforeEach(() => {
   files = []
   fileSymlinks = []
   dirs = [root]
@@ -57,7 +57,7 @@ beforeAll(() => {
   }
 })
 
-afterAll(() => {
+afterEach(() => {
   fs.rmSync(root, { recursive: true, force: true })
 })
 
