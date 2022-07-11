@@ -19,5 +19,8 @@
   "homepage": "https://github.com/jrc03c/fs-extras.js#readme",
   "dependencies": {
     "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0"
   }
 }
