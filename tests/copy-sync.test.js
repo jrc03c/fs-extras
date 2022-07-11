@@ -1,4 +1,4 @@
-const { copySync, getFilesDeepSync } = require("..")
+const { copySync } = require("..")
 const { isEqual } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
 const FileDB = require("@jrc03c/filedb")
