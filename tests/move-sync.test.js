@@ -79,3 +79,5 @@ test("tests that empty directories can be moved synchronously", () => {
 test("tests that an error is thrown when trying to synchronously move a directory into itself", () => {
   // console.warn("Remember to build this test!")
 })
+
+test("tests that the `moveSync` behavior matches the behavior of `mv`", () => {})

@@ -71,19 +71,7 @@ test("tests that directories can be copied synchronously", () => {
   config.teardown()
 })
 
-test("tests that symlink targets are preserved when copied synchronously", () => {
-  // console.warn("Remember to build this test!")
-})
-
-test("tests that preexisting files are overwritten during a synchronous copy", () => {
-  // console.warn("Remember to build this test!")
-})
-
-test("tests that empty directories can be copied synchronously", () => {
-  // console.warn("Remember to build this test!")
-})
-
-test("tests that the `copySync` behavior matches the behavior of `cp` (in Bash)", () => {
+test("tests that the `copySync` behavior matches the behavior of `cp`", () => {
   config.setup()
 
   // make a copy of the root directory for `cp` to work in
@@ -188,4 +176,16 @@ test("tests that the `copySync` behavior matches the behavior of `cp` (in Bash)"
   // clean up the alternate root copy
   execSync(`rm -rf "${altRoot}"`)
   config.teardown()
+})
+
+test("tests that symlink targets are preserved when copied synchronously", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that preexisting files are overwritten during a synchronous copy", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that empty directories can be copied synchronously", () => {
+  // console.warn("Remember to build this test!")
 })
