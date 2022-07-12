@@ -66,4 +66,22 @@ test("tests that directories can be copied synchronously", () => {
   config.teardown()
 })
 
-test("tests that symlink targets are preserved when copied synchronously", () => {})
+test("tests that symlink targets are preserved when copied synchronously", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that preexisting files are overwritten during a synchronous copy", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that empty directories can be copied synchronously", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests what happens if `src` is a directory and `dest` is a file", () => {
+  // console.warn("Remember to build this test (and add it to the other test files)!")
+})
+
+test("tests what happens if `src` is a file and `dest` is a directory", () => {
+  // console.warn("Remember to build this test (and add it to the other test files)!")
+})

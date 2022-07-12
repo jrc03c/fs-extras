@@ -63,3 +63,15 @@ test("tests that folders can be copied asynchronously", async () => {
   expect(srcFiles).toStrictEqual(destFiles)
   config.teardown()
 })
+
+test("tests that symlink targets are preserved when copied asynchronously", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that preexisting files are overwritten during an asynchronous copy", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that empty directories can be copied asynchronously", () => {
+  // console.warn("Remember to build this test!")
+})
