@@ -1,25 +1,21 @@
 const { copySync, getFilesDeepSync } = require("..")
 const config = require("./setup-and-teardown.js")
 const fs = require("fs")
+const makeKey = require("./make-key.js")
 const path = require("path")
 
 test("tests that files can be copied synchronously", () => {
   config.setup()
 
-  for (let i = 0; i < 25; i++) {
+  for (let i = 0; i < 100; i++) {
     const src = config.files.random()
-    const srcParts = src.split("/")
-    const srcDir = srcParts.slice(0, srcParts.length - 1).join("/")
-    const srcName = src.replace(srcDir, "")
-    const srcRaw = fs.readFileSync(src, "utf8")
-
     let destDir
 
-    while (!destDir || destDir === srcDir) {
+    while (!destDir || src.includes(destDir)) {
       destDir = config.dirs.random()
     }
 
-    const dest = path.join(destDir, srcName)
+    const dest = path.join(destDir, makeKey(8))
     expect(fs.existsSync(src)).toBe(true)
     expect(fs.existsSync(dest)).toBe(false)
 
@@ -27,9 +23,8 @@ test("tests that files can be copied synchronously", () => {
 
     expect(fs.existsSync(src)).toBe(true)
     expect(fs.existsSync(dest)).toBe(true)
+    expect(fs.readFileSync(dest, "utf8")).toBe(fs.readFileSync(src, "utf8"))
 
-    const destRaw = fs.readFileSync(dest, "utf8")
-    expect(destRaw).toBe(srcRaw)
     fs.unlinkSync(dest)
   }
 
