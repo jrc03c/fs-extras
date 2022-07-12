@@ -4,7 +4,7 @@
   "description": "**fs-extras** is a little package of extra tools to supplement Node's `fs` module.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage=true"
   },
   "repository": {
     "type": "git",
