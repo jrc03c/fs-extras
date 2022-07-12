@@ -1,6 +1,6 @@
 # Symlinks
 
-Decide when and how to follow symlinks.
+Decide when and how to follow symlinks. Right now, symlinks are not followed under any circumstances. I think that's probably the best behavior since it's possible to create infinite recursion with them. But it might be worth spending some more time thinking about.
 
 # Moving / copying behavior
 
