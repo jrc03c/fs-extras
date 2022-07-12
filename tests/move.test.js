@@ -50,6 +50,9 @@ test("tests that directories can be moved asynchronously", async () => {
   await move(src, dest)
 
   const srcFiles = originalSrcFiles.map(f => f.replace(src, "")).sort()
+  const srcParts = src.split("/")
+  const srcName = srcParts[srcParts.length - 1]
+  dest = path.join(dest, srcName)
 
   const destFiles = (await getFilesDeep(dest))
     .filter(f => originalDestFiles.indexOf(f) < 0)
@@ -70,5 +73,9 @@ test("tests that preexisting files are overwritten during an asynchronous move",
 })
 
 test("tests that empty directories can be moved asynchronously", () => {
+  // console.warn("Remember to build this test!")
+})
+
+test("tests that an error is thrown when trying to asynchronously move a directory into itself", () => {
   // console.warn("Remember to build this test!")
 })

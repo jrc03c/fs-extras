@@ -54,6 +54,9 @@ test("tests that folders can be copied asynchronously", async () => {
   await copy(src, dest)
 
   const srcFiles = (await getFilesDeep(src)).map(f => f.replace(src, "")).sort()
+  const srcParts = src.split("/")
+  const srcName = srcParts[srcParts.length - 1]
+  dest = path.join(dest, srcName)
 
   const destFiles = (await getFilesDeep(dest))
     .filter(f => originalDestFiles.indexOf(f) < 0)

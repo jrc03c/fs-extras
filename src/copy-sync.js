@@ -1,5 +1,6 @@
 const fs = require("fs")
 const getFilesDeepSync = require("./get-files-deep-sync.js")
+const path = require("path")
 
 function copySync(src, dest) {
   const stat = fs.lstatSync(src)
@@ -18,13 +19,30 @@ function copySync(src, dest) {
       const target = fs.readlinkSync(src)
       fs.symlinkSync(target, dest)
     } else {
+      if (fs.existsSync(dest) && fs.lstatSync(dest).isDirectory()) {
+        const srcParts = src.split("/")
+        const srcName = srcParts[srcParts.length - 1]
+        dest = path.join(dest, srcName)
+      }
+
       fs.copyFileSync(src, dest)
     }
   }
 
   // folders
   else {
-    if (!fs.existsSync(dest)) {
+    const srcParts = src.split("/")
+    const srcName = srcParts[srcParts.length - 1]
+    dest = path.join(dest, srcName)
+    const destExists = fs.existsSync(dest)
+
+    if (destExists && !fs.lstatSync(dest).isDirectory()) {
+      throw new Error(
+        `Cannot copy a directory into a file! ("${src}" → "${dest}")`
+      )
+    }
+
+    if (!destExists) {
       fs.mkdirSync(dest, { recursive: true })
     }
 

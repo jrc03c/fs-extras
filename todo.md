@@ -18,4 +18,4 @@ copySync("/foo", "/bar/baz")
 
 Which behavior should users expect? And how should the behavior change (if at all) in situations where one argument is a file and the other is a directory?
 
-Presumably, users will expect whichever behavior matches the Bash `cp` behavior, so I probably need to incorporate that into the moving and copying tests!
+Presumably, users will expect whichever behavior matches the Bash `cp` and `mv` behaviors, so I probably need to incorporate them into the moving and copying tests!

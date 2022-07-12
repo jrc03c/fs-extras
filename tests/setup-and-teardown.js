@@ -18,6 +18,9 @@ Object.defineProperty(Array.prototype, "last", {
 })
 
 function setup() {
+  fs.rmSync("temp", { recursive: true, force: true })
+  fs.mkdirSync("temp", { recursive: true })
+
   files = []
   dirs = [root]
   fileSymlinks = []
