@@ -1,4 +1,4 @@
-const { sort, set } = require("@jrc03c/js-math-tools")
+const { set, sort } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
 const fs = require("fs")
 const getFilesDeepSync = require("../src/get-files-deep-sync.js")

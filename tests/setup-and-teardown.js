@@ -1,8 +1,6 @@
 const fs = require("fs")
-const path = require("path")
 const makeKey = require("./make-key.js")
-const root = path.resolve("temp/" + makeKey(8))
-let files, dirs, fileSymlinks, dirSymlinks
+const path = require("path")
 
 Array.prototype.random = function () {
   const self = this
@@ -104,28 +102,8 @@ function teardown() {
   fs.rmSync(root, { recursive: true, force: true })
 }
 
-// if (typeof beforeEach === "undefined") {
-//   Object.defineProperty(global, "beforeEach", {
-//     enumerable: true,
-//     configurable: false,
-//     get() {
-//       return () => {}
-//     },
-//   })
-// }
-
-// if (typeof afterEach === "undefined") {
-//   Object.defineProperty(global, "afterEach", {
-//     enumerable: true,
-//     configurable: false,
-//     get() {
-//       return () => {}
-//     },
-//   })
-// }
-
-// beforeEach(setup)
-// afterEach(teardown)
+const root = path.resolve("temp/" + makeKey(8))
+let files, dirs, fileSymlinks, dirSymlinks
 
 module.exports = {
   get root() {

@@ -1,7 +1,7 @@
-const fs = require("fs")
-const findSync = require("../src/find-sync.js")
+const { diff, set, sort } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
-const { diff, sort, set } = require("@jrc03c/js-math-tools")
+const findSync = require("../src/find-sync.js")
+const fs = require("fs")
 
 test("tests that arbitrary files can be found synchronously", () => {
   config.setup()

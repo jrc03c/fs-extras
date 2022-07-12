@@ -1,7 +1,7 @@
-const fs = require("fs")
-const find = require("../src/find.js")
+const { set, sort } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
-const { sort, set } = require("@jrc03c/js-math-tools")
+const find = require("../src/find.js")
+const fs = require("fs")
 
 test("tests that arbitrary files can be found asynchronously", async () => {
   config.setup()

@@ -1,6 +1,6 @@
-const getDirsDeepSync = require("../src/get-dirs-deep-sync.js")
+const { set, sort } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
-const { sort, set } = require("@jrc03c/js-math-tools")
+const getDirsDeepSync = require("../src/get-dirs-deep-sync.js")
 
 test("tests that directories can be gotten deeply and synchronously", () => {
   config.setup()

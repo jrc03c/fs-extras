@@ -1,6 +1,6 @@
-const getFilesDeep = require("../src/get-files-deep.js")
+const { set, sort } = require("@jrc03c/js-math-tools")
 const config = require("./setup-and-teardown.js")
-const { sort, set } = require("@jrc03c/js-math-tools")
+const getFilesDeep = require("../src/get-files-deep.js")
 
 test("tests that files can be gotten deeply and asynchronously", async () => {
   config.setup()
