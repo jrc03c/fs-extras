@@ -17,12 +17,7 @@ test("tests that arbitrary directories can be found synchronously", () => {
   config.setup()
 
   for (let i = 0; i < 100; i++) {
-    let dirTrue
-
-    while (!dirTrue || dirTrue === config.root) {
-      dirTrue = config.dirs.random()
-    }
-
+    const dirTrue = config.dirs.slice(1).random()
     const name = dirTrue.split("/").filter(p => p.length > 0).last
     const resultsTrue = sort(set(config.dirs.filter(d => d.includes(name))))
 
@@ -35,15 +30,6 @@ test("tests that arbitrary directories can be found synchronously", () => {
       )
     )
 
-    if (resultsPred.length > resultsTrue.length) {
-      console.log("pred diff:", diff(resultsPred, resultsTrue))
-    }
-
-    if (resultsTrue.length > resultsPred.length) {
-      console.log("true diff:", diff(resultsTrue, resultsPred))
-    }
-
-    expect(resultsPred.length).toBe(resultsTrue.length)
     expect(resultsPred).toStrictEqual(resultsTrue)
   }
 

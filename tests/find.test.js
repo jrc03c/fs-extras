@@ -15,20 +15,23 @@ test("tests that arbitrary files can be found asynchronously", async () => {
 
 test("tests that arbitrary directories can be found asynchronously", async () => {
   config.setup()
-  const dirTrue = config.dirs.random()
-  const name = dirTrue.split("/").filter(p => p.length > 0).last
-  const resultsTrue = sort(set(config.dirs.filter(d => d.includes(name))))
 
-  const resultsPred = sort(
-    set(
-      await find(config.root, path => {
-        const stat = fs.lstatSync(path)
-        return path.includes(name) && !stat.isFile() && !stat.isSymbolicLink()
-      })
+  for (let i = 0; i < 100; i++) {
+    const dirTrue = config.dirs.slice(1).random()
+    const name = dirTrue.split("/").filter(p => p.length > 0).last
+    const resultsTrue = sort(set(config.dirs.filter(d => d.includes(name))))
+
+    const resultsPred = sort(
+      set(
+        await find(config.root, path => {
+          const stat = fs.lstatSync(path)
+          return path.includes(name) && stat.isDirectory()
+        })
+      )
     )
-  )
 
-  expect(resultsPred.length).toBe(resultsTrue.length)
-  expect(resultsPred).toStrictEqual(resultsTrue)
+    expect(resultsPred).toStrictEqual(resultsTrue)
+  }
+
   config.teardown()
 })

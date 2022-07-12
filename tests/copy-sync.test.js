@@ -135,7 +135,12 @@ test("tests that the `copySync` behavior matches the behavior of `cp`", () => {
   // copy file to directory
   ;(() => {
     const src = config.files.random()
-    const dest = config.dirs.random()
+    let dest
+
+    while (!dest || src.includes(dest)) {
+      dest = config.dirs.random()
+    }
+
     copySync(src, dest)
 
     const altSrc = src.replace(config.root, altRoot)
@@ -179,7 +184,37 @@ test("tests that the `copySync` behavior matches the behavior of `cp`", () => {
 })
 
 test("tests that symlink targets are preserved when copied synchronously", () => {
-  // console.warn("Remember to build this test!")
+  config.setup()
+
+  // file symlink
+  ;(() => {
+    for (let i = 0; i < 100; i++) {
+      const src = config.fileSymlinks.random()
+      const dest = path.join(config.dirs.random(), makeKey(8))
+
+      copySync(src, dest)
+
+      const srcTarget = fs.readlinkSync(src)
+      const destTarget = fs.readlinkSync(dest)
+      expect(destTarget).toBe(srcTarget)
+    }
+  })()
+
+  // directory symlink
+  ;(() => {
+    for (let i = 0; i < 100; i++) {
+      const src = config.dirSymlinks.random()
+      const dest = path.join(config.dirs.random(), makeKey(8))
+
+      copySync(src, dest)
+
+      const srcTarget = fs.readlinkSync(src)
+      const destTarget = fs.readlinkSync(dest)
+      expect(destTarget).toBe(srcTarget)
+    }
+  })()
+
+  config.teardown()
 })
 
 test("tests that preexisting files are overwritten during a synchronous copy", () => {
