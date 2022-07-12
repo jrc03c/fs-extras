@@ -1,12 +1,11 @@
-const { copySync } = require("..")
-const { isEqual } = require("@jrc03c/js-math-tools")
+const { copySync, getFilesDeepSync } = require("..")
 const config = require("./setup-and-teardown.js")
-const FileDB = require("@jrc03c/filedb")
 const fs = require("fs")
-const makeKey = require("./make-key.js")
 const path = require("path")
 
 test("tests that files can be copied synchronously", () => {
+  config.setup()
+
   for (let i = 0; i < 25; i++) {
     const src = config.files.random()
     const srcParts = src.split("/")
@@ -31,28 +30,45 @@ test("tests that files can be copied synchronously", () => {
 
     const destRaw = fs.readFileSync(dest, "utf8")
     expect(destRaw).toBe(srcRaw)
+    fs.unlinkSync(dest)
   }
+
+  config.teardown()
 })
 
 test("tests that directories can be copied synchronously", () => {
-  const src = config.dirs.random()
+  config.setup()
+  config.dirs.sort((a, b) => b.length - a.length)
 
-  const dest = path.join(
-    config.root,
-    [makeKey(8), makeKey(8), makeKey(8)].join("/")
-  )
+  const src = config.dirs[0]
+  let index = 0
+  let dest
 
-  expect(fs.existsSync(src)).toBe(true)
-  expect(fs.existsSync(dest)).toBe(false)
+  while (
+    !dest ||
+    src.includes(dest) ||
+    dest.includes(src) ||
+    dest === config.root
+  ) {
+    dest = config.dirs[index]
+    index++
+  }
+
+  const originalDestFiles = getFilesDeepSync(dest)
 
   copySync(src, dest)
 
-  expect(fs.existsSync(src)).toBe(true)
-  expect(fs.existsSync(dest)).toBe(true)
+  const srcFiles = getFilesDeepSync(src)
+    .map(f => f.replace(src, ""))
+    .sort()
 
-  const srcObj = new FileDB(src).readSync("/")
-  const destObj = new FileDB(dest).readSync("/")
-  expect(isEqual(srcObj, destObj)).toBe(true)
+  const destFiles = getFilesDeepSync(dest)
+    .filter(f => originalDestFiles.indexOf(f) < 0)
+    .map(f => f.replace(dest, ""))
+    .sort()
+
+  expect(srcFiles).toStrictEqual(destFiles)
+  config.teardown()
 })
 
 test("tests that symlink targets are preserved when copied synchronously", () => {})

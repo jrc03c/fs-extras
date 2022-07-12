@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@jrc03c/filedb": "github:jrc03c/filedb",
+    "@jrc03c/progress": "github:jrc03c/progress",
     "eslint": "^8.19.0"
   }
 }
