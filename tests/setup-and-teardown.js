@@ -1,8 +1,6 @@
 const fs = require("fs")
-const path = require("path")
 const makeKey = require("./make-key.js")
-const root = path.resolve("temp/" + makeKey(8))
-let files, dirs, fileSymlinks
+const path = require("path")
 
 Array.prototype.random = function () {
   const self = this
@@ -19,47 +17,96 @@ Object.defineProperty(Array.prototype, "last", {
   },
 })
 
-beforeAll(() => {
+function setup() {
+  fs.rmSync("temp", { recursive: true, force: true })
+  fs.mkdirSync("temp", { recursive: true })
+
   files = []
-  fileSymlinks = []
   dirs = [root]
+  fileSymlinks = []
+  dirSymlinks = []
 
-  for (let i = 0; i < 100; i++) {
-    const name = makeKey(8)
+  // make directories
+  for (let i = 0; i < Math.random() * 25 + 10; i++) {
     const dir = dirs.random()
-
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
-    }
-
-    // set up files
-    if (Math.random() < 0.5) {
-      const newFile = path.resolve(dir + "/" + name)
-
-      if (Math.random() < 0.5 || files.length === 0) {
-        // create a file
-        files.push(newFile)
-        fs.writeFileSync(newFile, Math.random().toString(), "utf8")
-      } else {
-        // symlink a file
-        const currentFile = files.random()
-        fileSymlinks.push(newFile)
-        fs.symlinkSync(currentFile, newFile)
-      }
-    }
-
-    // set up directories
-    else {
-      const newDir = path.resolve(dir + "/" + name)
-      dirs.push(newDir)
-      fs.mkdirSync(newDir, { recursive: true })
-    }
+    const child = path.join(dir, makeKey(8))
+    fs.mkdirSync(child, { recursive: true })
+    dirs.push(child)
   }
-})
 
-afterAll(() => {
+  // make files
+  dirs.forEach(dir => {
+    for (let i = 0; i < parseInt(Math.random() * 3); i++) {
+      const child = path.join(dir, makeKey(8))
+      fs.writeFileSync(child, Math.random().toString(), "utf8")
+      files.push(child)
+    }
+  })
+
+  // make symlinks
+  for (let i = 0; i < 10; i++) {
+    const link = path.join(dirs.random(), makeKey(8))
+    let target
+
+    if (Math.random() < 0.5) {
+      target = files.random()
+      fileSymlinks.push(link)
+    } else {
+      target = dirs.random()
+      dirSymlinks.push(link)
+    }
+
+    fs.symlinkSync(target, link)
+  }
+
+  // confirm that each this is what it says it is
+  dirs.forEach(dir => {
+    if (!fs.lstatSync(dir).isDirectory()) {
+      throw new Error(`Is supposed to be a directory! (${dir})`)
+    }
+  })
+
+  files.forEach(file => {
+    if (!fs.lstatSync(file).isFile()) {
+      throw new Error(`Is supposed to be a file! (${file})`)
+    }
+  })
+
+  fileSymlinks.forEach(symlink => {
+    if (!fs.lstatSync(symlink).isSymbolicLink()) {
+      throw new Error(`Is supposed to be a symbolic link! (${symlink})`)
+    }
+
+    const target = fs.readlinkSync(symlink)
+
+    if (!fs.lstatSync(target).isFile()) {
+      throw new Error(
+        `The target of the symlink is supposed to be a file! (${target})`
+      )
+    }
+  })
+
+  dirSymlinks.forEach(symlink => {
+    if (!fs.lstatSync(symlink).isSymbolicLink()) {
+      throw new Error(`Is supposed to be a symbolic link! (${symlink})`)
+    }
+
+    const target = fs.readlinkSync(symlink)
+
+    if (!fs.lstatSync(target).isDirectory()) {
+      throw new Error(
+        `The target of the symlink is supposed to be a directory! (${target})`
+      )
+    }
+  })
+}
+
+function teardown() {
   fs.rmSync(root, { recursive: true, force: true })
-})
+}
+
+const root = path.resolve("temp/" + makeKey(8))
+let files, dirs, fileSymlinks, dirSymlinks
 
 module.exports = {
   get root() {
@@ -67,10 +114,21 @@ module.exports = {
   },
 
   get files() {
-    return files.concat(fileSymlinks)
+    return files
   },
 
   get dirs() {
     return dirs
   },
+
+  get fileSymlinks() {
+    return fileSymlinks
+  },
+
+  get dirSymlinks() {
+    return dirSymlinks
+  },
+
+  setup,
+  teardown,
 }
