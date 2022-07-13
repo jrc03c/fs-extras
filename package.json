@@ -4,7 +4,7 @@
   "description": "**fs-extras** is a little package of extra tools to supplement Node's `fs` module.",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --coverage=true"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,10 @@
   "homepage": "https://github.com/jrc03c/fs-extras.js#readme",
   "dependencies": {
     "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools"
+  },
+  "devDependencies": {
+    "@jrc03c/filedb": "github:jrc03c/filedb",
+    "@jrc03c/progress": "github:jrc03c/progress",
+    "eslint": "^8.19.0"
   }
 }

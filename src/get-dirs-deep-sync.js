@@ -36,7 +36,7 @@ function getAllDirsDeepSync(dir, depth) {
 
     if (!stat) return
 
-    if (!stat.isFile() && !stat.isSymbolicLink()) {
+    if (stat.isDirectory()) {
       out.push(childPath)
       getAllDirsDeepSync(childPath, depth - 1).forEach(d => out.push(d))
     }
