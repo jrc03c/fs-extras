@@ -22,7 +22,9 @@
   },
   "devDependencies": {
     "@jrc03c/filedb": "github:jrc03c/filedb",
+    "@jrc03c/make-key": "github:jrc03c/make-key",
     "@jrc03c/progress": "github:jrc03c/progress",
-    "eslint": "^8.19.0"
+    "eslint": "^8.19.0",
+    "jest": "^29.0.3"
   }
 }

@@ -1,5 +1,5 @@
 const fs = require("fs")
-const makeKey = require("./make-key.js")
+const makeKey = require("@jrc03c/make-key")
 const path = require("path")
 
 Array.prototype.random = function () {
@@ -18,8 +18,8 @@ Object.defineProperty(Array.prototype, "last", {
 })
 
 function setup() {
-  fs.rmSync("temp", { recursive: true, force: true })
-  fs.mkdirSync("temp", { recursive: true })
+  fs.rmSync(root, { recursive: true, force: true })
+  fs.mkdirSync(root, { recursive: true })
 
   files = []
   dirs = [root]
