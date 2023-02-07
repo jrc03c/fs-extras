@@ -1,10 +1,11 @@
 {
   "name": "@jrc03c/fs-extras",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "**fs-extras** is a little package of extra tools to supplement Node's `fs` module.",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage=true"
+    "test": "jest --coverage=true",
+    "pub": "npm version patch --force && npm publish --access=public"
   },
   "repository": {
     "type": "git",
