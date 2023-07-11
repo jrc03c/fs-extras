@@ -1,6 +1,6 @@
 {
   "name": "@jrc03c/fs-extras",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "**fs-extras** is a little package of extra tools to supplement Node's `fs` module.",
   "main": "index.js",
   "scripts": {
