@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/jrc03c/fs-extras.js#readme",
   "dependencies": {
-    "@jrc03c/js-math-tools": "github:jrc03c/js-math-tools"
+    "@jrc03c/js-math-tools": "^0.0.58"
   },
   "devDependencies": {
-    "@jrc03c/filedb": "github:jrc03c/filedb",
-    "@jrc03c/make-key": "github:jrc03c/make-key",
+    "@jrc03c/filedb": "^0.0.18",
+    "@jrc03c/make-key": "^0.0.14",
     "@jrc03c/progress": "github:jrc03c/progress",
     "eslint": "^8.19.0",
     "jest": "^29.0.3"
