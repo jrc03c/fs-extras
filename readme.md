@@ -5,7 +5,7 @@
 # Installation
 
 ```bash
-npm install --save https://github.com/jrc03c/fs-extras.js
+npm install --save @jrc03c/fs-extras
 ```
 
 # Usage
