@@ -49,6 +49,46 @@ This has only been tested on Linux. I suspect it probably won't work on Windows 
 
 # API
 
+**`createFileStreamReader(file : string, progress : function)`**
+
+returns an object that can read from a file one line at a time, which is useful for very large files; can optionally accept a `progress` callback function
+
+for example:
+
+```js
+const { createFileStreamReader } = require("@jrc03c/fs-extras")
+
+!(async () => {
+  const reader = createFileStreamReader("path/to/my-big-file.txt")
+
+  for await (const line of reader.read()) {
+    // do something with `line`
+  }
+
+  reader.close()
+})()
+```
+
+**`createFileStreamWriter(file : string)`**
+
+returns an object that can write to a file one line at a time, which may in some cases be preferable to writing an entire file to disk all at once
+
+for example:
+
+```js
+const { createFileWriterObject } = require("@jrc03c/fs-extras")
+
+!(async () => {
+  const writer = createFileWriterObject("path/to/my-file.txt")
+
+  for (let i = 0; i < 1e20; i++) {
+    await writer.write(Math.random().toString() + "\n")
+  }
+
+  writer.close()
+})()
+```
+
 **`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`**
 
 synchronously returns an array of directories and files matched by `matcher` to an optional depth of `depth`
