@@ -1,6 +1,12 @@
 const fs = require("fs")
 
 function createFileStreamWriter(file) {
+  if (typeof file !== "string") {
+    throw new Error(
+      "The first argument passed into the `createFileStreamReader` function must be a string representing a file path!"
+    )
+  }
+
   const stream = fs.createWriteStream(file)
   let canWrite = true
 
@@ -28,7 +34,7 @@ function createFileStreamWriter(file) {
             clearInterval(interval)
             resolve()
           }, 1)
-        } catch(e) {
+        } catch (e) {
           reject(e)
         }
       })
