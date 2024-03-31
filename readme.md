@@ -71,15 +71,15 @@ const { createFileStreamReader } = require("@jrc03c/fs-extras")
 
 **`createFileStreamWriter(file : string)`**
 
-returns an object that can write to a file one line at a time, which may in some cases be preferable to writing an entire file to disk all at once
+returns an object that can write to a file one ~line~ chunk at a time, which may in some cases be preferable to writing an entire file to disk all at once
 
 for example:
 
 ```js
-const { createFileWriterObject } = require("@jrc03c/fs-extras")
+const { createFileStreamWriter } = require("@jrc03c/fs-extras")
 
 !(async () => {
-  const writer = createFileWriterObject("path/to/my-file.txt")
+  const writer = createFileStreamWriter("path/to/my-file.txt")
 
   for (let i = 0; i < 1e20; i++) {
     await writer.write(Math.random().toString() + "\n")
@@ -88,6 +88,8 @@ const { createFileWriterObject } = require("@jrc03c/fs-extras")
   writer.close()
 })()
 ```
+
+note that the example above writes one _line_ at a time, but that's only because of the `"\n"` at the end
 
 **`findSync(dir : string, matcher : RegExp | string | function, depth? : int)`**
 
