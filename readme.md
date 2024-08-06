@@ -1,3 +1,7 @@
+> ⚠️ **NOTE:** ⚠️ This project is being merged into a monorepo [here](https://github.com/jrc03c/monorepo/tree/main/packages/fs-extras). This repo will soon be archived.
+
+---
+
 # Introduction
 
 **fs-extras** is a little package of tools to supplement Node's `fs` module.
